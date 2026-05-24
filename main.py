@@ -7,6 +7,7 @@ game = True
 
 class GameSprite(sprite.Sprite):
     def __init__(self, image_, width, height, x, y):
+        super().__init__()
         self.image = transform.scale(image.load(image_), (width, height))
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -14,6 +15,21 @@ class GameSprite(sprite.Sprite):
 
     def reset(self):
         win.blit(self.image, (self.rect.x, self.rect.y))
+
+
+class Platform(GameSprite):
+    def __init__(self, speed, key_up, key_down):
+        super().__init__()
+        self.speed = speed
+        self.key_up = key_up
+        self.key_down = key_down
+
+    def update(self):
+        key_pressed = key.get_pressed
+        if key_pressed[self.key_up] and self.rect.y >= 20:
+            self.rect.y -= self.speed
+        if key_pressed[self.key_down] and self.rect.y <= HEIGHT - self.rect.height - 20:
+            self.rect.y += self.speed
 
 timer = time.Clock()
 
