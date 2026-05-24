@@ -31,6 +31,19 @@ class Platform(GameSprite):
         if key_pressed[self.key_down] and self.rect.y <= HEIGHT - self.rect.height - 20:
             self.rect.y += self.speed
 
+
+class Ball(GameSprite):
+    def __init__(self, speed):
+        super().__init__()
+        self.speed_x = speed
+        self.speed_y = speed
+
+    def update(self):
+        if self.rect.y <= 20:
+            self.speed_y *= -1
+        if self.rect.y >= HEIGHT - self.rect.height - 20:
+            self.speed_y *= -1
+
 timer = time.Clock()
 
 win = display.set_mode((WIDTH, HEIGHT))
