@@ -18,8 +18,8 @@ class GameSprite(sprite.Sprite):
 
 
 class Platform(GameSprite):
-    def __init__(self, speed, key_up, key_down):
-        super().__init__()
+    def __init__(self, image_, width, height, x, y, speed, key_up, key_down):
+        super().__init__(image_, width, height, x, y)
         self.speed = speed
         self.key_up = key_up
         self.key_down = key_down
@@ -33,8 +33,8 @@ class Platform(GameSprite):
 
 
 class Ball(GameSprite):
-    def __init__(self, speed):
-        super().__init__()
+    def __init__(self, image_, width, height, x, y, speed):
+        super().__init__(image_, width, height, x, y)
         self.speed_x = speed
         self.speed_y = speed
 
@@ -43,6 +43,10 @@ class Ball(GameSprite):
             self.speed_y *= -1
         if self.rect.y >= HEIGHT - self.rect.height - 20:
             self.speed_y *= -1
+
+player_1 = Platform('racket.png', 30, 200, 50, 350, 5, K_w, K_s)
+player_2 = Platform('racket.png', 30, 200, WIDTH - 50, 350, 5, K_w, K_s)
+
 
 timer = time.Clock()
 
