@@ -65,6 +65,9 @@ while game:
             game = False
     win.fill((255, 255, 255))
 
+    if sprite.spritecollide(ball, players, False):
+        ball.speed_x *= -1
+
     players.draw(win)
     players.update()
     ball.reset()
