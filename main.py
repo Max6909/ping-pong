@@ -1,4 +1,5 @@
 from pygame import *
+from random import choice, randint
 
 WIDTH = 900
 HEIGHT = 900
@@ -35,8 +36,8 @@ class Platform(GameSprite):
 class Ball(GameSprite):
     def __init__(self, image_, width, height, x, y, speed):
         super().__init__(image_, width, height, x, y)
-        self.speed_x = speed
-        self.speed_y = speed
+        self.speed_x = choice([-speed, speed])
+        self.speed_y = choice([randint(-speed, -speed // 2), randint(speed// 2, speed)])
 
     def update(self):
         if self.rect.y <= 20:
