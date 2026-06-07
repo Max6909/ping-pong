@@ -54,7 +54,16 @@ players = sprite.Group()
 players.add(player_1)
 players.add(player_2)
 
+finish = False
+
 timer = time.Clock()
+
+font.init()
+
+font1 = font.Font(None, 70)
+
+right_win_l = font1.render('Победил правый игрок', True, (50, 255, 50))
+left_win_l = font1.render('Победил левый игрок', True, (50, 255, 50))
 
 win = display.set_mode((WIDTH, HEIGHT))
 display.set_caption('ping-pong')
@@ -63,15 +72,25 @@ while game:
     for e in event.get():
         if e.type == QUIT:
             game = False
-    win.fill((255, 255, 255))
+    if not finish:
+        win.fill((255, 255, 255))
 
-    if sprite.spritecollide(ball, players, False):
-        ball.speed_x *= -1
+        if sprite.spritecollide(ball, players, False):
+            ball.speed_x *= -1
 
-    players.draw(win)
-    players.update()
-    ball.reset()
-    ball.update()
+
+        players.draw(win)
+        players.update()
+        ball.reset()
+        ball.update()
+        
+        if ball.rect.x >= WIDTH:
+            win.blit(left_win_l, (200, 420))
+            finish = True
+
+        if ball.rect.x <= -ball.rect.width:
+            win.blit(right_win_l, (200, 420))
+            finish = True
 
 
     display.update()
